@@ -1,0 +1,19 @@
+<h1>List of photos</h1>
+ 
+	<%= link_to 'Add your photo', new_photo_path, class: 'btn btn-lg btn-primary' %>
+ 
+<hr />
+
+<ul class="row" id="photos-list">
+  <% @photos.each do |photo| %>
+    <li class="col-xs-3">
+      <%= link_to image_tag(photo.image.thumb('50x50#').url, alt: photo.title, class: 'img-thumbnail'),
+                  photo.image.url, target: '_blank' %>
+      <p><%= photo.title %></p>
+			<small><%= number_to_human_size photo.image.size %></small>
+      <hr />
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @photos, :previous_label => "Previous", :next_label => 'Next' %>
